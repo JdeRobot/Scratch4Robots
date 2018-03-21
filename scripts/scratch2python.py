@@ -10,13 +10,15 @@ __maintainer__ = "Raul Perula-Martinez"
 __email__ = "raules@gmail.com"
 __status__ = "Development"
 
-import kurt
+
 import os
 import sys
+import rospkg
+import kurt
+
 
 from difflib import SequenceMatcher
 from parse import parse, compile
-from termcolor import cprint
 
 MATH = [
     ['sqrt of {}', 'math.sqrt({l[0]})'],
@@ -177,12 +179,17 @@ def sentence_mapping(sentence, threshold=0.0):
 
 
 if __name__ == "__main__":
+    for arg in sys.argv:
+        print arg
+    
+    rospack = rospkg.RosPack()
+
     # get current working directory
     path = os.getcwd()
-    open_path = path[:path.rfind('scripts')] + 'data/'
-    save_path = path[:path.rfind('scripts')] + 'src/scratch4robots/'
+    open_path = rospack.get_path('scratch4robots') + '/data/'
+    save_path = rospack.get_path('scratch4robots') + '/src/'
 
-    if len(sys.argv) == 2:
+    if len(sys.argv) >= 2:
         # template creation
 
         template = "\
@@ -194,7 +201,8 @@ import sys\n\
 import comm\n\
 import os\n\
 import yaml\n\
-import math\n\n\
+import math\n\
+import rospkg\n\n\
 from drone import Drone\n\
 from robot import Robot\n\n\
 def execute(robot):\n\
@@ -205,7 +213,7 @@ except KeyboardInterrupt:\n\
 if __name__ == '__main__':\n\
 \tif len(sys.argv) == 2:\n\
 \t\tpath = os.getcwd()\n\
-\t\topen_path = path[:path.rfind('src')] + 'cfg/'\n\
+\t\topen_path = rospack.get_path('scratch4robots') + '/cfg/'\n\
 \t\tfilename = sys.argv[1]\n\n\
 \telse:\n\
 \t\tsys.exit(\"ERROR: Example:python my_generated_script.py cfgfile.yml\")\n\n\
@@ -272,7 +280,7 @@ if __name__ == '__main__':\n\
             if translation != None:
                 python_program += translation
             else:
-                cprint("[WARN] Block <%s> not included yet" % s, 'yellow')
+                print("[WARN] Block <%s> not included yet")
             python_program += "\n" + tab_seq
 
         # join the template with the code and replace the tabs
@@ -282,7 +290,7 @@ if __name__ == '__main__':\n\
         file_text = file_text.replace(tab_seq, ' ' * 4)
 
         print("\n-------------------")
-        cprint(file_text, 'green')
+        print(file_text)
         print("-------------------\n")
 
         # save the code in a python file with the same name as sb2 file
@@ -294,4 +302,4 @@ if __name__ == '__main__':\n\
 
     else:
         print(
-            "ERROR: Number of parameters incorrect. Example:\n\tpython scratch4robots.py hello_world.sb2")
+            "ERROR: Number of parameters incorrect. Example:\n\tpython scratch2python.py hello_world.sb2")

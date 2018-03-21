@@ -1,9 +1,9 @@
 <?xml version="1.0"?>
 <package format="2">
-    <name>scratch2jderobot</name>
+    <name>scratch4robots</name>
     <version>0.0.0</version>
     <description>
-        scratch2jderobot
+        scratch4robots
     </description>
 
     <!-- Author tags are optional, multiple are allowed, one per tag -->

@@ -1,0 +1,6 @@
+<launch>
+  <arg name="file"/>
+  <node pkg="scratch4robots" type="scratch2python.py" name="scratch2python" required="true" output="screen" args="$(arg file)">
+ </node>
+</launch>
+
