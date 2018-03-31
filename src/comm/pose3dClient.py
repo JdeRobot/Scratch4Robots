@@ -2,7 +2,6 @@ import sys
 import Ice
 import rospy
 from .ice.pose3dIceClient import Pose3dIceClient
-from .tools import server2int
 
 if (sys.version_info[0] == 2):
     from .ros.listenerPose3d import ListenerPose3d
@@ -79,8 +78,7 @@ def getPose3dClient (jdrc, prefix):
     @return None if pose3d is disabled
 
     '''
-    server = jdrc.getConfig().getProperty(prefix+".Server")
-    server = server2int(server)
+    server = jdrc.getConfig().getPropertyWithDefault(prefix+".Server", 0)
 
     cons = [__Posedisabled, __getPoseIceClient, __getListenerPose]
 

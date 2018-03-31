@@ -12,7 +12,6 @@ from .cmdvelClient import getCMDVelClient
 from .ptMotorsClient import getPTMotorsClient
 from .bumperClient import getBumperClient
 from .sonarClient import getSonarClient
-from .tools import server2int
 
 
 
@@ -26,7 +25,7 @@ class Communicator:
 	    Communicator constructor
 
 	    @param config: configuration of communicator
-
+	    
 	    @type config: dict
 
 	    '''
@@ -39,9 +38,9 @@ class Communicator:
 
 		ymlNode = self.config.getProperty(prefix)
 		for i in ymlNode:
-			if type(ymlNode[i]) is dict and server2int(ymlNode[i]["Server"]) == 1:
+			if type(ymlNode[i]) is dict and ymlNode[i]["Server"] == 1:
 				iceserver = True
-			if type(ymlNode[i]) is dict and server2int(ymlNode[i]["Server"]) == 2:
+			if type(ymlNode[i]) is dict and ymlNode[i]["Server"] == 2:
 				rosserver = True
 
 		if rosserver:
@@ -67,8 +66,8 @@ class Communicator:
 	def getIc(self):
 		return self.__ic
 
-	def getConfig(self):
-		return self.config
+	def getConfig(self):	
+		return self.config 
 
 
 	def getCameraClient(self, name):
@@ -76,7 +75,7 @@ class Communicator:
 	    Returns a Camera client with the configration indicated by the name
 
 	    @param name: name of the client in the config
-
+	    
 	    @type name: String
 
 	    '''
@@ -87,7 +86,7 @@ class Communicator:
 	    Returns a Motors client with the configration indicated by the name
 
 	    @param name: name of the client in the config
-
+	    
 	    @type name: String
 
 	    '''
@@ -98,7 +97,7 @@ class Communicator:
 	    Returns a Pose3D client with the configration indicated by the name
 
 	    @param name: name of the client in the config
-
+	    
 	    @type name: String
 
 	    '''
@@ -109,7 +108,7 @@ class Communicator:
 	    Returns a Laser client with the configration indicated by the name
 
 	    @param name: name of the client in the config
-
+	    
 	    @type name: String
 
 	    '''
@@ -121,7 +120,7 @@ class Communicator:
 	    Returns a RGBD client with the configration indicated by the name
 
 	    @param name: name of the client in the config
-
+	    
 	    @type name: String
 
 	    '''
@@ -132,7 +131,7 @@ class Communicator:
 	    Returns a CMDVel client with the configration indicated by the name
 
 	    @param name: name of the client in the config
-
+	    
 	    @type name: String
 
 	    '''
@@ -143,7 +142,7 @@ class Communicator:
 	    Returns a Navdata client with the configration indicated by the name
 
 	    @param name: name of the client in the config
-
+	    
 	    @type name: String
 
 	    '''
@@ -154,7 +153,7 @@ class Communicator:
 	    Returns a ArDroneExtra client with the configration indicated by the name
 
 	    @param name: name of the client in the config
-
+	    
 	    @type name: String
 
 	    '''
@@ -165,7 +164,7 @@ class Communicator:
 	    Returns a PTMotors client with the configration indicated by the name
 
 	    @param name: name of the client in the config
-
+	    
 	    @type name: String
 
 	    '''
@@ -176,7 +175,7 @@ class Communicator:
 	    Returns a Bumper client with the configration indicated by the name
 
 	    @param name: name of the client in the config
-
+	    
 	    @type name: String
 
 	    '''
@@ -187,8 +186,9 @@ class Communicator:
 	    Returns a Sonar client with the configration indicated by the name
 
 	    @param name: name of the client in the config
-
+	    
 	    @type name: String
 
 	    '''
 		return getSonarClient(self, name)
+

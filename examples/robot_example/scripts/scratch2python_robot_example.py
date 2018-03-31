@@ -1,6 +1,16 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 
+__author__ = "Raul Perula-Martinez"
+__copyright__ = "JdeRobot project"
+__credits__ = ["Raul Perula-Martinez"]
+__license__ = "GPL v3"
+__version__ = "0.0.0"
+__maintainer__ = "Raul Perula-Martinez"
+__email__ = "raules@gmail.com"
+__status__ = "Development"
+
+
 import os
 import sys
 import kurt

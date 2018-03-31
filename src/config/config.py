@@ -20,6 +20,7 @@ __author__ = 'aitormf'
 
 import sys, os
 import yaml
+from .hardcodedpaths import HARDCODED_PATHS
 from .properties import Properties
 
 
@@ -35,9 +36,8 @@ def findConfigFile(filename):
 
     '''
     paths = "."
-    config_paths = os.getenv("JDEROBOT_CONFIG_PATHS")
-    if config_paths:
-        paths = paths+":"+config_paths
+    if HARDCODED_PATHS:
+        paths = paths+":"+HARDCODED_PATHS
 
     for path in paths.split(":"):
         file_path = os.path.join(path, filename)

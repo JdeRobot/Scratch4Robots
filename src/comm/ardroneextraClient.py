@@ -1,13 +1,12 @@
 import sys
 import Ice
-from .ice.navdataIceClient import NavdataIceClient
-from .tools import server2int
+from .ice.ardroneextraIceClient import ArDroneExtraIceClient
 
 
 
-def __getNavdataIceClient(jdrc, prefix):
+def __getArDroneExtraIceClient(jdrc, prefix):
     '''
-    Returns a Navdata Ice Client. This function should never be used. Use getNavdataClient instead of this
+    Returns a ArDroneExtra Ice Client. This function should never be used. Use getArDroneExtraClient instead of this
 
     @param jdrc: Comm Communicator
     @param prefix: Name of client in config file
@@ -15,17 +14,17 @@ def __getNavdataIceClient(jdrc, prefix):
     @type jdrc: Comm Communicator
     @type prefix: String
 
-    @return Navdata Ice Client
+    @return ArDroneExtra Ice Client
 
     '''
     print("Publishing "+ prefix +" with ICE interfaces")
-    client = NavdataIceClient(jdrc, prefix)
+    client = ArDroneExtraIceClient(jdrc, prefix)
     client.start()
     return client
 
-def __getPublisherNavdata(jdrc, prefix):
+def __getPublisherArDroneExtra(jdrc, prefix):
     '''
-    Returns a Navdata ROS Publisher. This function should never be used. Use getNavdataClient instead of this
+    Returns a ArDroneExtra ROS Publisher. This function should never be used. Use getArDroneExtraClient instead of this
 
     @param jdrc: Comm Communicator
     @param prefix: Name of client in config file
@@ -33,16 +32,16 @@ def __getPublisherNavdata(jdrc, prefix):
     @type jdrc: Comm Communicator
     @type prefix: String
 
-    @return Navdata ROS Publisher
+    @return ArDroneExtra ROS Publisher
 
     '''
-
-    print(prefix + ": ROS msg are diabled")
+    
+    print(prefix + ": This Interface doesn't support ROS msg")
     return None
 
-def __Navdatadisabled(jdrc, prefix):
+def __ArDroneExtradisabled(jdrc, prefix):
     '''
-    Prints a warning that the client is disabled. This function should never be used. Use getNavdataClient instead of this
+    Prints a warning that the client is disabled. This function should never be used. Use getArDroneExtraClient instead of this
 
     @param jdrc: Comm Communicator
     @param prefix: Name of client in config file
@@ -56,9 +55,9 @@ def __Navdatadisabled(jdrc, prefix):
     print(prefix + " Disabled")
     return None
 
-def getNavdataClient (jdrc, prefix):
+def getArDroneExtraClient (jdrc, prefix):
     '''
-    Returns a Navdata Client.
+    Returns a ArDroneExtra Client.
 
     @param jdrc: Comm Communicator
     @param prefix: Name of client in config file
@@ -68,12 +67,13 @@ def getNavdataClient (jdrc, prefix):
     @type prefix: String
     @type node: ROS node
 
-    @return None if Navdata is disabled
+    @return None if ArDroneExtra is disabled
 
     '''
     server = jdrc.getConfig().getProperty(prefix+".Server")
-   server = server2int(server)
+    if not server:
+        server=0
 
-    cons = [__Navdatadisabled, __getNavdataIceClient, __getPublisherNavdata]
+    cons = [__ArDroneExtradisabled, __getArDroneExtraIceClient, __getPublisherArDroneExtra]
 
     return cons[server](jdrc, prefix)

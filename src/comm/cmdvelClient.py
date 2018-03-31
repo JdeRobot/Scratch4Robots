@@ -1,13 +1,12 @@
 import sys
 import Ice
-from .ice.ardroneextraIceClient import ArDroneExtraIceClient
-from .tools import server2int
+from .ice.cmdvelIceClient import CMDVelIceClient
 
 
 
-def __getArDroneExtraIceClient(jdrc, prefix):
+def __getCMDVelIceClient(jdrc, prefix):
     '''
-    Returns a ArDroneExtra Ice Client. This function should never be used. Use getArDroneExtraClient instead of this
+    Returns a CMDVel Ice Client. This function should never be used. Use getCMDVelClient instead of this
 
     @param jdrc: Comm Communicator
     @param prefix: Name of client in config file
@@ -15,17 +14,17 @@ def __getArDroneExtraIceClient(jdrc, prefix):
     @type jdrc: Comm Communicator
     @type prefix: String
 
-    @return ArDroneExtra Ice Client
+    @return CMDVel Ice Client
 
     '''
     print("Publishing "+ prefix +" with ICE interfaces")
-    client = ArDroneExtraIceClient(jdrc, prefix)
+    client = CMDVelIceClient(jdrc, prefix)
     client.start()
     return client
 
-def __getPublisherArDroneExtra(jdrc, prefix):
+def __getPublisherCMDVel(jdrc, prefix):
     '''
-    Returns a ArDroneExtra ROS Publisher. This function should never be used. Use getArDroneExtraClient instead of this
+    Returns a CMDVel ROS Publisher. This function should never be used. Use getCMDVelClient instead of this
 
     @param jdrc: Comm Communicator
     @param prefix: Name of client in config file
@@ -33,16 +32,16 @@ def __getPublisherArDroneExtra(jdrc, prefix):
     @type jdrc: Comm Communicator
     @type prefix: String
 
-    @return ArDroneExtra ROS Publisher
+    @return CMDVel ROS Publisher
 
     '''
-
+    
     print(prefix + ": This Interface doesn't support ROS msg")
     return None
 
-def __ArDroneExtradisabled(jdrc, prefix):
+def __CMDVeldisabled(jdrc, prefix):
     '''
-    Prints a warning that the client is disabled. This function should never be used. Use getArDroneExtraClient instead of this
+    Prints a warning that the client is disabled. This function should never be used. Use getCMDVelClient instead of this
 
     @param jdrc: Comm Communicator
     @param prefix: Name of client in config file
@@ -56,9 +55,9 @@ def __ArDroneExtradisabled(jdrc, prefix):
     print(prefix + " Disabled")
     return None
 
-def getArDroneExtraClient (jdrc, prefix):
+def getCMDVelClient (jdrc, prefix):
     '''
-    Returns a ArDroneExtra Client.
+    Returns a CMDVel Client.
 
     @param jdrc: Comm Communicator
     @param prefix: Name of client in config file
@@ -68,12 +67,13 @@ def getArDroneExtraClient (jdrc, prefix):
     @type prefix: String
     @type node: ROS node
 
-    @return None if ArDroneExtra is disabled
+    @return None if CMDVel is disabled
 
     '''
     server = jdrc.getConfig().getProperty(prefix+".Server")
-    server = server2int(server)
+    if not server:
+        server=0
 
-    cons = [__ArDroneExtradisabled, __getArDroneExtraIceClient, __getPublisherArDroneExtra]
+    cons = [__CMDVeldisabled, __getCMDVelIceClient, __getPublisherCMDVel]
 
     return cons[server](jdrc, prefix)

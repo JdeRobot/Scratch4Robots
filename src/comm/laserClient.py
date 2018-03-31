@@ -1,11 +1,12 @@
 import sys
 import Ice
 import rospy
-from .ice.sonarIceClient import SonarIceClient
-from .tools import server2int
+from .ice.laserIceClient import LaserIceClient
 
+if (sys.version_info[0] == 2):
+    from .ros.listenerLaser import ListenerLaser
 
-def __getSonarIceClient(jdrc, prefix):
+def __getLaserIceClient(jdrc, prefix):
     '''
     Returns a Laser Ice Client. This function should never be used. Use getLaserClient instead of this
 
@@ -18,12 +19,12 @@ def __getSonarIceClient(jdrc, prefix):
     @return Laser Ice Client
 
     '''
-    print("Receiving " + prefix + " SonarData from ICE interfaces")
-    client = SonarIceClient(jdrc, prefix)
+    print("Receiving " + prefix + " LaserData from ICE interfaces")
+    client = LaserIceClient(jdrc, prefix)
     client.start()
     return client
 
-def __getListenerSonar(jdrc, prefix):
+def __getListenerLaser(jdrc, prefix):
     '''
     Returns a Laser ROS Subscriber. This function should never be used. Use getLaserClient instead of this
 
@@ -36,10 +37,16 @@ def __getListenerSonar(jdrc, prefix):
     @return Laser ROS Subscriber
 
     '''
-    print(prefix + ": This Interface doesn't support ROS msg")
-    return None
+    if (sys.version_info[0] == 2):
+        print("Receiving " + prefix + "  LaserData from ROS messages")
+        topic  = jdrc.getConfig().getProperty(prefix+".Topic")
+        client = ListenerLaser(topic)
+        return client
+    else:
+        print(prefix + ": ROS msg are diabled for python "+ sys.version_info[0])
+        return None
 
-def __Sonardisabled(jdrc, prefix):
+def __Laserdisabled(jdrc, prefix):
     '''
     Prints a warning that the client is disabled. This function should never be used. Use getLaserClient instead of this
 
@@ -55,7 +62,7 @@ def __Sonardisabled(jdrc, prefix):
     print( prefix + " Disabled")
     return None
 
-def getSonarClient (jdrc, prefix):
+def getLaserClient (jdrc, prefix):
     '''
     Returns a Laser Client.
 
@@ -68,9 +75,8 @@ def getSonarClient (jdrc, prefix):
     @return None if Laser is disabled
 
     '''
-    server = jdrc.getConfig().getProperty(prefix+".Server")
-    server = server2int(server)
+    server = jdrc.getConfig().getPropertyWithDefault(prefix+".Server", 0)
 
-    cons = [__Sonardisabled, __getSonarIceClient, __getListenerSonar]
+    cons = [__Laserdisabled, __getLaserIceClient, __getListenerLaser]
 
     return cons[server](jdrc, prefix)

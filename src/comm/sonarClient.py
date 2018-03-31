@@ -1,10 +1,10 @@
 import sys
 import Ice
-from .ice.laserIceClient import LaserIceClient
-from .tools import server2int
+import rospy
+from .ice.sonarIceClient import SonarIceClient
 
 
-def __getLaserIceClient(jdrc, prefix):
+def __getSonarIceClient(jdrc, prefix):
     '''
     Returns a Laser Ice Client. This function should never be used. Use getLaserClient instead of this
 
@@ -17,12 +17,12 @@ def __getLaserIceClient(jdrc, prefix):
     @return Laser Ice Client
 
     '''
-    print("Receiving " + prefix + " LaserData from ICE interfaces")
-    client = LaserIceClient(jdrc, prefix)
+    print("Receiving " + prefix + " SonarData from ICE interfaces")
+    client = SonarIceClient(jdrc, prefix)
     client.start()
     return client
 
-def __getListenerLaser(jdrc, prefix):
+def __getListenerSonar(jdrc, prefix):
     '''
     Returns a Laser ROS Subscriber. This function should never be used. Use getLaserClient instead of this
 
@@ -34,11 +34,11 @@ def __getListenerLaser(jdrc, prefix):
 
     @return Laser ROS Subscriber
 
-    '''
-    print(prefix + ": ROS msg are diabled")
+    '''    
+    print(prefix + ": This Interface doesn't support ROS msg")
     return None
 
-def __Laserdisabled(jdrc, prefix):
+def __Sonardisabled(jdrc, prefix):
     '''
     Prints a warning that the client is disabled. This function should never be used. Use getLaserClient instead of this
 
@@ -54,12 +54,12 @@ def __Laserdisabled(jdrc, prefix):
     print( prefix + " Disabled")
     return None
 
-def getLaserClient (jdrc, prefix):
+def getSonarClient (jdrc, prefix):
     '''
     Returns a Laser Client.
 
     @param jdrc: Comm Communicator
-    @param name: name of client in config file
+    @param prefix: name of client in config file
 
     @type jdrc: Comm Communicator
     @type name: String
@@ -68,8 +68,9 @@ def getLaserClient (jdrc, prefix):
 
     '''
     server = jdrc.getConfig().getProperty(prefix+".Server")
-    server = server2int(server)
+    if not server:
+        server=0
 
-    cons = [__Laserdisabled, __getLaserIceClient, __getListenerLaser]
+    cons = [__Sonardisabled, __getSonarIceClient, __getListenerSonar]
 
     return cons[server](jdrc, prefix)

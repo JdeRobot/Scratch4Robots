@@ -2,7 +2,6 @@ import sys
 import Ice
 import rospy
 from .ice.rgbdIceClient import RgbdIceClient
-from .tools import server2int
 
 if (sys.version_info[0] == 2):
     from .ros.listenerRgbd import ListenerRgbd
@@ -79,8 +78,7 @@ def getRgbdClient (jdrc, prefix):
     @return None if Rgbd is disabled
 
     '''
-    server = jdrc.getConfig().getProperty(prefix+".Server")
-    server = server2int(server)
+    server = jdrc.getConfig().getPropertyWithDefault(prefix+".Server", 0)
 
     cons = [__Rgbddisabled, __getRgbdIceClient, __getListenerRgbd]
 

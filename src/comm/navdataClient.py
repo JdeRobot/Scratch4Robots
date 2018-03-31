@@ -1,13 +1,12 @@
 import sys
 import Ice
-from .ice.motorsIceClient import MotorsIceClient
-from .tools import server2int
+from .ice.navdataIceClient import NavdataIceClient
 
 
 
-def __getMotorsIceClient(jdrc, prefix):
+def __getNavdataIceClient(jdrc, prefix):
     '''
-    Returns a Motors Ice Client. This function should never be used. Use getMotorsClient instead of this
+    Returns a Navdata Ice Client. This function should never be used. Use getNavdataClient instead of this
 
     @param jdrc: Comm Communicator
     @param prefix: Name of client in config file
@@ -15,17 +14,17 @@ def __getMotorsIceClient(jdrc, prefix):
     @type jdrc: Comm Communicator
     @type prefix: String
 
-    @return Motors Ice Client
+    @return Navdata Ice Client
 
     '''
     print("Publishing "+ prefix +" with ICE interfaces")
-    client = MotorsIceClient(jdrc, prefix)
+    client = NavdataIceClient(jdrc, prefix)
     client.start()
     return client
 
-def __getPublisherMotors(jdrc, prefix):
+def __getPublisherNavdata(jdrc, prefix):
     '''
-    Returns a Motors ROS Publisher. This function should never be used. Use getMotorsClient instead of this
+    Returns a Navdata ROS Publisher. This function should never be used. Use getNavdataClient instead of this
 
     @param jdrc: Comm Communicator
     @param prefix: Name of client in config file
@@ -33,16 +32,16 @@ def __getPublisherMotors(jdrc, prefix):
     @type jdrc: Comm Communicator
     @type prefix: String
 
-    @return Motors ROS Publisher
+    @return Navdata ROS Publisher
 
     '''
-
-    print(prefix + ": ROS msg are diabled")
+    
+    print(prefix + ": This Interface doesn't support ROS msg")
     return None
 
-def __Motorsdisabled(jdrc, prefix):
+def __Navdatadisabled(jdrc, prefix):
     '''
-    Prints a warning that the client is disabled. This function should never be used. Use getMotorsClient instead of this
+    Prints a warning that the client is disabled. This function should never be used. Use getNavdataClient instead of this
 
     @param jdrc: Comm Communicator
     @param prefix: Name of client in config file
@@ -56,9 +55,9 @@ def __Motorsdisabled(jdrc, prefix):
     print(prefix + " Disabled")
     return None
 
-def getMotorsClient (jdrc, prefix):
+def getNavdataClient (jdrc, prefix):
     '''
-    Returns a Motors Client.
+    Returns a Navdata Client.
 
     @param jdrc: Comm Communicator
     @param prefix: Name of client in config file
@@ -68,12 +67,13 @@ def getMotorsClient (jdrc, prefix):
     @type prefix: String
     @type node: ROS node
 
-    @return None if Motors is disabled
+    @return None if Navdata is disabled
 
     '''
     server = jdrc.getConfig().getProperty(prefix+".Server")
-    server = server2int(server)
+    if not server:
+        server=0
 
-    cons = [__Motorsdisabled, __getMotorsIceClient, __getPublisherMotors]
+    cons = [__Navdatadisabled, __getNavdataIceClient, __getPublisherNavdata]
 
     return cons[server](jdrc, prefix)

@@ -1,8 +1,10 @@
 import sys
 import Ice
+import rospy
 from .ice.bumperIceClient import BumperIceClient
-from .tools import server2int
 
+if (sys.version_info[0] == 2):
+    from .ros.listenerBumper import ListenerBumper
 
 def __getBumperIceClient(jdrc, prefix):
     '''
@@ -35,8 +37,14 @@ def __getListenerBumper(jdrc, prefix):
     @return Bumper ROS Subscriber
 
     '''
-    print(prefix + ": ROS msg are diabled")
-    return None
+    if (sys.version_info[0] == 2):
+        print("Receiving " + prefix + "  BumperData from ROS messages")
+        topic  = jdrc.getConfig().getProperty(prefix+".Topic")
+        client = ListenerBumper(topic)
+        return client
+    else:
+        print(prefix + ": ROS msg are diabled for python "+ sys.version_info[0])
+        return None
 
 def __Bumperdisabled(jdrc, prefix):
     '''
@@ -59,7 +67,7 @@ def getBumperClient (jdrc, prefix):
     Returns a Bumper Client.
 
     @param jdrc: Comm Communicator
-    @param name: name of client in config file
+    @param prefix: name of client in config file
 
     @type jdrc: Comm Communicator
     @type name: String
@@ -67,8 +75,7 @@ def getBumperClient (jdrc, prefix):
     @return None if Bumper is disabled
 
     '''
-    server = jdrc.getConfig().getProperty(prefix+".Server")
-    server = server2int(server)
+    server = jdrc.getConfig().getPropertyWithDefault(prefix+".Server", 0)
 
     cons = [__Bumperdisabled, __getBumperIceClient, __getListenerBumper]
 

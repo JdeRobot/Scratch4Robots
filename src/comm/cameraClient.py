@@ -2,7 +2,6 @@ import sys
 import Ice
 import rospy
 from .ice.cameraIceClient import CameraIceClient
-from .tools import server2int
 
 if (sys.version_info[0] == 2):
     from .ros.listenerCamera import ListenerCamera
@@ -76,8 +75,7 @@ def getCameraClient (jdrc, prefix):
     @return None if Camera is disabled
 
     '''
-    server = jdrc.getConfig().getProperty(prefix+".Server")
-    server = server2int(server)
+    server = jdrc.getConfig().getPropertyWithDefault(prefix+".Server", 0)
 
     cons = [__Cameradisabled, __getCameraIceClient, __getListenerCamera]
 

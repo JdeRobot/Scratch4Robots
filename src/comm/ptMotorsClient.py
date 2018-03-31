@@ -1,13 +1,12 @@
 import sys
 import Ice
-from .ice.cmdvelIceClient import CMDVelIceClient
-from .tools import server2int
+from .ice.ptMotorsIceClient import PTMotorsIceClient
 
 
 
-def __getCMDVelIceClient(jdrc, prefix):
+def __getPTMotorsIceClient(jdrc, prefix):
     '''
-    Returns a CMDVel Ice Client. This function should never be used. Use getCMDVelClient instead of this
+    Returns a PTMotors Ice Client. This function should never be used. Use getPTMotorsClient instead of this
 
     @param jdrc: Comm Communicator
     @param prefix: Name of client in config file
@@ -15,17 +14,17 @@ def __getCMDVelIceClient(jdrc, prefix):
     @type jdrc: Comm Communicator
     @type prefix: String
 
-    @return CMDVel Ice Client
+    @return PTMotors Ice Client
 
     '''
     print("Publishing "+ prefix +" with ICE interfaces")
-    client = CMDVelIceClient(jdrc, prefix)
+    client = PTMotorsIceClient(jdrc, prefix)
     client.start()
     return client
 
-def __getPublisherCMDVel(jdrc, prefix):
+def __getPublisherPTMotors(jdrc, prefix):
     '''
-    Returns a CMDVel ROS Publisher. This function should never be used. Use getCMDVelClient instead of this
+    Returns a PTMotors ROS Publisher. This function should never be used. Use getPTMotorsClient instead of this
 
     @param jdrc: Comm Communicator
     @param prefix: Name of client in config file
@@ -33,16 +32,16 @@ def __getPublisherCMDVel(jdrc, prefix):
     @type jdrc: Comm Communicator
     @type prefix: String
 
-    @return CMDVel ROS Publisher
+    @return PTMotors ROS Publisher
 
     '''
-
+    
     print(prefix + ": This Interface doesn't support ROS msg")
     return None
 
-def __CMDVeldisabled(jdrc, prefix):
+def __PTMotorsdisabled(jdrc, prefix):
     '''
-    Prints a warning that the client is disabled. This function should never be used. Use getCMDVelClient instead of this
+    Prints a warning that the client is disabled. This function should never be used. Use getPTMotorsClient instead of this
 
     @param jdrc: Comm Communicator
     @param prefix: Name of client in config file
@@ -56,9 +55,9 @@ def __CMDVeldisabled(jdrc, prefix):
     print(prefix + " Disabled")
     return None
 
-def getCMDVelClient (jdrc, prefix):
+def getPTMotorsClient (jdrc, prefix):
     '''
-    Returns a CMDVel Client.
+    Returns a PTMotors Client.
 
     @param jdrc: Comm Communicator
     @param prefix: Name of client in config file
@@ -68,12 +67,11 @@ def getCMDVelClient (jdrc, prefix):
     @type prefix: String
     @type node: ROS node
 
-    @return None if CMDVel is disabled
+    @return None if PTMotors is disabled
 
     '''
-    server = jdrc.getConfig().getProperty(prefix+".Server")
-    server = server2int(server)
+    server = jdrc.getConfig().getPropertyWithDefault(prefix+".Server", 0)
 
-    cons = [__CMDVeldisabled, __getCMDVelIceClient, __getPublisherCMDVel]
+    cons = [__PTMotorsdisabled, __getPTMotorsIceClient, __getPublisherPTMotors]
 
     return cons[server](jdrc, prefix)
