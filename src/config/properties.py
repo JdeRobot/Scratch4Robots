@@ -44,6 +44,7 @@ class Properties:
 
 	def _searchNode(self, node, lst):
 		name = lst.pop(0)
+                print "name property ", name
 
 		nod = node[name]
 

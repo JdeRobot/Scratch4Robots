@@ -186,7 +186,7 @@ if __name__ == "__main__":
     # get current working directory
     path = os.getcwd()
     open_path = path[:path.rfind('scripts')] + 'data/'
-    save_path = path[:path.rfind('scripts')] + '/src/'
+    save_path = path[:path.rfind('scripts')] + 'src/'
 
     if len(sys.argv) >= 2:
         # template creation
