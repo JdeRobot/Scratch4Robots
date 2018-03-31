@@ -30,7 +30,7 @@ def execute(robot):
 if __name__ == '__main__':
     if len(sys.argv) == 2:
         path = os.getcwd()
-        open_path = path[:path.rfind('scripts')] + '/cfg/'
+        open_path = path[:path.rfind('src')] + 'cfg/'
         filename = sys.argv[1]
 
     else:
@@ -39,25 +39,11 @@ if __name__ == '__main__':
     # loading the ICE and ROS parameters
     cfg = config.load(open_path + filename)
     stream = open(open_path + filename, "r")
-    yml_file = yaml.load(stream)
+    jdrc = comm.init(cfg,'robot')
 
-    for section in yml_file:
-        if section == 'drone':
-            #starting comm
-            jdrc = comm.init(cfg,'drone')
+    # creating the object
+    robot = Robot(jdrc)
 
-            # creating the object
-            robot = Drone(jdrc)
-
-            break
-        elif section == 'robot':
-            #starting comm
-            jdrc = comm.init(cfg,'robot')
-
-            # creating the object
-            robot = Robot(jdrc)
-
-            break
     # executing the scratch program
     execute(robot)
 

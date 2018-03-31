@@ -1,15 +1,25 @@
-# Make the translation from Scratch to python
-	
-	roslaunch Scratch4Robots scratch2python_example.launch file:=robot_example.sb2
+# Getting started
 
-# Launch the simulated world
+Source your catkin workspace
 
-	roslaunch roslaunch kuboki_world.launch
+    cd catkin_workspace
+    source devel/setup.bash
 
-or
+You can two between two examples file, robot_example_1.sb2 or robot_example_2.sb2
 
-	roslaunch kobuki-simple-world.launch
 
-# Execute the generated code
-	
-	./robot_example.py robot_ros.yml
+## Make the translation from Scratch to python
+
+	roslaunch scratch4robots scratch2python_example.launch file:=robot_example_2.sb2
+
+## Launch the simulated world
+
+In other terminal run:
+
+    roslaunch kobuki_gazebo kobuki_empty_world.launch --screen
+
+## Execute the generated code
+
+	roscd scratch4robots
+	cd examples/robot_examples/src
+	./robot_example_2.py robot_ros.yml

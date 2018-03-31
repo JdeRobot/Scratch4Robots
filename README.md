@@ -44,6 +44,7 @@ or
 	roslaunch kobuki-simple-world.launch
 
 ## Execute the generated code
+
 	roscd Scratch4Robots
 	cd src
 	./myscratchfile.py robot_ros.yml
