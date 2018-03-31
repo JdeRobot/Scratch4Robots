@@ -22,29 +22,26 @@ Now your package is ready to use.
 ## Install Scartch4Robots extension to use in Scratch2.0
 
 In scratch keep pressing shift key while you click on "File" > "Import experimental HTTP extension" and add our extension.
-The extension will be stored in the extension directory of your package.
+The extension will be stored in the "extension" directory of your package.
 
 ## Make a project
 
-Make a scratch project and save it in the data directory of the package 
+Make a scratch project and save it in the data directory of the package
 
 ## Make the translation from Scratch to python
 
-	roslaunch Scratch4Robots scratch2python.launch file:=myscratchfile.sb2
+	roslaunch scratch4robots scratch2python.launch file:=myscratchfile.sb2
 
 
 ## Launch the simulated world
- 
+
 for example:
 
-	roslaunch roslaunch kuboki_world.launch
+    roslaunch kobuki_gazebo kobuki_empty_world.launch --screen
 
-or
-
-	roslaunch kobuki-simple-world.launch
 
 ## Execute the generated code
 
-	roscd Scratch4Robots
+	roscd scratch4robots
 	cd src
 	./myscratchfile.py robot_ros.yml
