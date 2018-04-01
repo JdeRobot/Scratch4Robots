@@ -37,15 +37,13 @@ class Properties:
 
 		try:
 			return self.getProperty(name)
-		
+
 		except KeyError:
 			return dataDefault
 
 
 	def _searchNode(self, node, lst):
 		name = lst.pop(0)
-                print "name property ", name
-
 		nod = node[name]
 
 		if (len(lst) > 0):
@@ -55,4 +53,3 @@ class Properties:
 
 	def __str__(self):
 		return yaml.dump(self._config)
-
