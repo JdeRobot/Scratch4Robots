@@ -16,40 +16,22 @@
 #  Authors :
 #       Aitor Martinez Fernandez <aitor.martinez.fernandez@gmail.com>
 #
-__author__ = 'aitormf'
 
-import yaml
-
-class Properties:
-	def __init__(self, cfg):
-		self._config = cfg
-
-	def getNode(self):
-		return self._config
-
-	def getProperty(self, name):
-
-		names = name.split(".")
-
-		return self._searchNode(self._config, names)
-
-	def getPropertyWithDefault(self, name, dataDefault):
-
-		try:
-			return self.getProperty(name)
-
-		except KeyError:
-			return dataDefault
+from .image import Image
 
 
-	def _searchNode(self, node, lst):
-		name = lst.pop(0)
-		nod = node[name]
+class Rgbd:
 
-		if (len(lst) > 0):
-			return (self._searchNode(nod, lst))
-		else:
-			return nod
+    def __init__(self):
 
-	def __str__(self):
-		return yaml.dump(self._config)
+        self.color = Image()
+        self.depth = Image()
+        self.timeStamp = 0 # Time stamp [s] */
+
+
+    def __str__(self):
+        s = "rgbd: {\n   "+ self.color.__str__() + "\n"
+        s = s + self.depth.__str__() + "\n"
+        s = s + "timeStamp: " + str(self.timeStamp) + "\n}"
+        
+        return s 

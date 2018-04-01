@@ -1,6 +1,16 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 
+__author__ = "Raul Perula-Martinez"
+__copyright__ = "JdeRobot project"
+__credits__ = ["Raul Perula-Martinez"]
+__license__ = "GPL v3"
+__version__ = "0.0.0"
+__maintainer__ = "Raul Perula-Martinez"
+__email__ = "raules@gmail.com"
+__status__ = "Development"
+
+
 import os
 import sys
 import kurt
@@ -170,13 +180,13 @@ def sentence_mapping(sentence, threshold=0.0):
 if __name__ == "__main__":
     for arg in sys.argv:
         print arg
-    
+
 
 
     # get current working directory
     path = os.getcwd()
     open_path = path[:path.rfind('scripts')] + 'data/'
-    save_path = path[:path.rfind('scripts')] + '/src/'
+    save_path = path[:path.rfind('scripts')] + 'src/'
 
     if len(sys.argv) >= 2:
         # template creation
@@ -201,27 +211,16 @@ except KeyboardInterrupt:\n\
 if __name__ == '__main__':\n\
 \tif len(sys.argv) == 2:\n\
 \t\tpath = os.getcwd()\n\
-\t\topen_path = path[:path.rfind('scripts')] + '/cfg/'\n\
+\t\topen_path = path[:path.rfind('src')] + 'cfg/'\n\
 \t\tfilename = sys.argv[1]\n\n\
 \telse:\n\
 \t\tsys.exit(\"ERROR: Example:python my_generated_script.py cfgfile.yml\")\n\n\
 \t# loading the ICE and ROS parameters\n\
 \tcfg = config.load(open_path + filename)\n\
 \tstream = open(open_path + filename, \"r\")\n\
-\tyml_file = yaml.load(stream)\n\n\
-\tfor section in yml_file:\n\
-\t\tif section == 'drone':\n\
-\t\t\t#starting comm\n\
-\t\t\tjdrc = comm.init(cfg,'drone')\n\n\
-\t\t\t# creating the object\n\
-\t\t\trobot = Drone(jdrc)\n\n\
-\t\t\tbreak\n\
-\t\telif section == 'robot':\n\
-\t\t\t#starting comm\n\
-\t\t\tjdrc = comm.init(cfg,'robot')\n\n\
-\t\t\t# creating the object\n\
-\t\t\trobot = Robot(jdrc)\n\n\
-\t\t\tbreak\n\
+\tjdrc = comm.init(cfg,'robot')\n\n\
+\t# creating the object\n\
+\trobot = Robot(jdrc)\n\n\
 \t# executing the scratch program\n\
 \texecute(robot)\n\n\
 "

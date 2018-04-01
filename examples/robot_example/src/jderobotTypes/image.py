@@ -16,40 +16,25 @@
 #  Authors :
 #       Aitor Martinez Fernandez <aitor.martinez.fernandez@gmail.com>
 #
-__author__ = 'aitormf'
 
-import yaml
-
-class Properties:
-	def __init__(self, cfg):
-		self._config = cfg
-
-	def getNode(self):
-		return self._config
-
-	def getProperty(self, name):
-
-		names = name.split(".")
-
-		return self._searchNode(self._config, names)
-
-	def getPropertyWithDefault(self, name, dataDefault):
-
-		try:
-			return self.getProperty(name)
-
-		except KeyError:
-			return dataDefault
+import numpy as np
 
 
-	def _searchNode(self, node, lst):
-		name = lst.pop(0)
-		nod = node[name]
+class Image:
 
-		if (len(lst) > 0):
-			return (self._searchNode(nod, lst))
-		else:
-			return nod
+    def __init__(self):
 
-	def __str__(self):
-		return yaml.dump(self._config)
+        self.height = 3  # Image height [pixels]
+        self.width = 3  # Image width [pixels]
+        self.timeStamp = 0 # Time stamp [s] */
+        self.format = "" # Image format string (RGB8, BGR,...)
+        self.data = np.zeros((self.height, self.width, 3), np.uint8) # The image data itself
+        self.data.shape = self.height, self.width, 3
+
+
+    def __str__(self):
+        s = "Image: {\n   height: " + str(self.height) + "\n   width: " + str(self.width)
+        s = s + "\n   format: " + self.format + "\n   timeStamp: " + str(self.timeStamp) 
+        s = s + "\n   data: " + str(self.data) + "\n}"
+        return s 
+

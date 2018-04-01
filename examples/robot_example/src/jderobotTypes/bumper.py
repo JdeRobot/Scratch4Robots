@@ -16,40 +16,17 @@
 #  Authors :
 #       Aitor Martinez Fernandez <aitor.martinez.fernandez@gmail.com>
 #
-__author__ = 'aitormf'
 
-import yaml
+class BumperData ():
 
-class Properties:
-	def __init__(self, cfg):
-		self._config = cfg
+	def __init__(self):
 
-	def getNode(self):
-		return self._config
+		self.bumper = 0 # Indicates that bumper is
+		self.state = 0 # pressed or no (1,0)
+		self.timeStamp = 0 # Time stamp [s]
 
-	def getProperty(self, name):
-
-		names = name.split(".")
-
-		return self._searchNode(self._config, names)
-
-	def getPropertyWithDefault(self, name, dataDefault):
-
-		try:
-			return self.getProperty(name)
-
-		except KeyError:
-			return dataDefault
-
-
-	def _searchNode(self, node, lst):
-		name = lst.pop(0)
-		nod = node[name]
-
-		if (len(lst) > 0):
-			return (self._searchNode(nod, lst))
-		else:
-			return nod
 
 	def __str__(self):
-		return yaml.dump(self._config)
+		s = "BumperData: {\n   bumper: " + str(self.bumper) + "\n   state: " + str(self.state)
+		s = s + "\n   timeStamp: " + str(self.timeStamp)  + "\n}"
+		return s 

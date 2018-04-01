@@ -16,40 +16,23 @@
 #  Authors :
 #       Aitor Martinez Fernandez <aitor.martinez.fernandez@gmail.com>
 #
-__author__ = 'aitormf'
-
-import yaml
-
-class Properties:
-	def __init__(self, cfg):
-		self._config = cfg
-
-	def getNode(self):
-		return self._config
-
-	def getProperty(self, name):
-
-		names = name.split(".")
-
-		return self._searchNode(self._config, names)
-
-	def getPropertyWithDefault(self, name, dataDefault):
-
-		try:
-			return self.getProperty(name)
-
-		except KeyError:
-			return dataDefault
 
 
-	def _searchNode(self, node, lst):
-		name = lst.pop(0)
-		nod = node[name]
+class LaserData ():
 
-		if (len(lst) > 0):
-			return (self._searchNode(nod, lst))
-		else:
-			return nod
+	def __init__(self):
+
+		self.values = [] # meters
+		self.minAngle = 0 # Angle of first value (rads)
+		self.maxAngle = 0 # Angle of last value (rads)
+		self.minRange = 0 # Max Range posible (meters)
+		self.maxRange = 0 #Min Range posible (meters)
+		self.timeStamp = 0 # seconds
+
 
 	def __str__(self):
-		return yaml.dump(self._config)
+		s = "LaserData: {\n   minAngle: " + str(self.minAngle) + "\n   maxAngle: " + str(self.maxAngle)
+		s = s + "\n   minRange: " + str(self.minRange) + "\n   maxRange: " + str(self.maxRange) 
+		s = s + "\n   timeStamp: " + str(self.timeStamp) + "\n   values: " + str(self.values) + "\n}"
+		return s 
+

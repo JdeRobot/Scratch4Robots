@@ -7,6 +7,7 @@ import sys
 import comm
 import os
 import yaml
+import math
 
 from drone import Drone
 from robot import Robot
@@ -14,12 +15,20 @@ from robot import Robot
 def execute(robot):
     try:
         while True:
-            robot.turn("left", 1)
+            robot.move("forward", 2)
             time.sleep(5)
             robot.stop()
             time.sleep(1)
-            robot.turn("right", 2)
+            robot.move("back", 2)
             time.sleep(5)
+            robot.stop()
+            time.sleep(1)
+            robot.turn("left", 0.5)
+            time.sleep(2)
+            robot.stop()
+            time.sleep(1)
+            robot.turn("right", 0.5)
+            time.sleep(2)
             robot.stop()
             time.sleep(1)
         
@@ -38,25 +47,11 @@ if __name__ == '__main__':
     # loading the ICE and ROS parameters
     cfg = config.load(open_path + filename)
     stream = open(open_path + filename, "r")
-    yml_file = yaml.load(stream)
+    jdrc = comm.init(cfg,'robot')
 
-    for section in yml_file:
-        if section == 'drone':
-            #starting comm
-            jdrc = comm.init(cfg,'drone')
+    # creating the object
+    robot = Robot(jdrc)
 
-            # creating the object
-            robot = Drone(jdrc)
-
-            break
-        elif section == 'robot':
-            #starting comm
-            jdrc = comm.init(cfg,'robot')
-
-            # creating the object
-            robot = Robot(jdrc)
-
-            break
     # executing the scratch program
     execute(robot)
 

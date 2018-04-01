@@ -16,40 +16,23 @@
 #  Authors :
 #       Aitor Martinez Fernandez <aitor.martinez.fernandez@gmail.com>
 #
-__author__ = 'aitormf'
 
-import yaml
+class CMDVel ():
 
-class Properties:
-	def __init__(self, cfg):
-		self._config = cfg
+	def __init__(self):
 
-	def getNode(self):
-		return self._config
+		self.vx = 0 # vel in x[m/s] (use this for V in wheeled robots)
+		self.vy = 0 # vel in y[m/s]
+		self.vz = 0 # vel in z[m/s]
+		self.ax = 0 # angular vel in X axis [rad/s]
+		self.ay = 0 # angular vel in X axis [rad/s]
+		self.az = 0 # angular vel in Z axis [rad/s] (use this for W in wheeled robots)
+		self.timeStamp = 0 # Time stamp [s]
 
-	def getProperty(self, name):
-
-		names = name.split(".")
-
-		return self._searchNode(self._config, names)
-
-	def getPropertyWithDefault(self, name, dataDefault):
-
-		try:
-			return self.getProperty(name)
-
-		except KeyError:
-			return dataDefault
-
-
-	def _searchNode(self, node, lst):
-		name = lst.pop(0)
-		nod = node[name]
-
-		if (len(lst) > 0):
-			return (self._searchNode(nod, lst))
-		else:
-			return nod
 
 	def __str__(self):
-		return yaml.dump(self._config)
+		s = "CMDVel: {\n   vx: " + str(self.vx) + "\n   vy: " + str(self.vy)
+		s = s + "\n   vz: " + str(self.vz) + "\n   ax: " + str(self.ax) 
+		s = s + "\n   ay: " + str(self.ay) + "\n   az: " + str(self.az)
+		s = s + "\n   timeStamp: " + str(self.timeStamp)  + "\n}"
+		return s 

@@ -16,40 +16,25 @@
 #  Authors :
 #       Aitor Martinez Fernandez <aitor.martinez.fernandez@gmail.com>
 #
-__author__ = 'aitormf'
 
-import yaml
+class Pose3d ():
 
-class Properties:
-	def __init__(self, cfg):
-		self._config = cfg
+	def __init__(self):
 
-	def getNode(self):
-		return self._config
+		self.x = 0 # X coord [meters]
+		self.y = 0 # Y coord [meters]
+		self.z = 0 # Z coord [meters]
+		self.h = 1 # H param
+		self.yaw = 0 #Yaw angle[rads]
+		self.pitch = 0 # Pitch angle[rads]
+		self.roll = 0 # Roll angle[rads]
+		self.q = [0,0,0,0] # Quaternion
+		self.timeStamp = 0 # Time stamp [s]
 
-	def getProperty(self, name):
-
-		names = name.split(".")
-
-		return self._searchNode(self._config, names)
-
-	def getPropertyWithDefault(self, name, dataDefault):
-
-		try:
-			return self.getProperty(name)
-
-		except KeyError:
-			return dataDefault
-
-
-	def _searchNode(self, node, lst):
-		name = lst.pop(0)
-		nod = node[name]
-
-		if (len(lst) > 0):
-			return (self._searchNode(nod, lst))
-		else:
-			return nod
 
 	def __str__(self):
-		return yaml.dump(self._config)
+		s = "Pose3D: {\n   x: " + str(self.x) + "\n   Y: " + str(self.y)
+		s = s + "\n   Z: " + str(self.z) + "\n   H: " + str(self.h) 
+		s = s + "\n   Yaw: " + str(self.yaw) + "\n   Pitch: " + str(self.pitch) + "\n   Roll: " + str(self.roll)
+		s = s + "\n   quaternion: " + str(self.q) + "\n   timeStamp: " + str(self.timeStamp)  + "\n}"
+		return s 
