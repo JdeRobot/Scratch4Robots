@@ -176,7 +176,7 @@ if __name__ == "__main__":
     # get current working directory
     path = os.getcwd()
     open_path = path[:path.rfind('scripts')] + 'data/'
-    save_path = path[:path.rfind('scripts')] + '/src/'
+    save_path = path[:path.rfind('scripts')] + 'src/'
 
     if len(sys.argv) >= 2:
         # template creation
@@ -200,7 +200,7 @@ except KeyboardInterrupt:\n\
 if __name__ == '__main__':\n\
 \tif len(sys.argv) == 2:\n\
 \t\tpath = os.getcwd()\n\
-\t\topen_path = path[:path.rfind('scripts')] + '/cfg/'\n\
+\t\topen_path = path[:path.rfind('src')] + 'cfg/'\n\
 \t\tfilename = sys.argv[1]\n\n\
 \telse:\n\
 \t\tsys.exit(\"ERROR: Example:python my_generated_script.py cfgfile.yml\")\n\n\
