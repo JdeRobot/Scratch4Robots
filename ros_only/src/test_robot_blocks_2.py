@@ -4,7 +4,6 @@
 import time
 import config
 import sys
-import comm
 import os
 import yaml
 
@@ -35,26 +34,19 @@ if __name__ == '__main__':
     else:
         sys.exit("ERROR: Example:python my_generated_script.py cfgfile.yml")
 
-    # loading the ICE and ROS parameters
+    # loading parameters
     cfg = config.load(open_path + filename)
     stream = open(open_path + filename, "r")
     yml_file = yaml.load(stream)
 
     for section in yml_file:
         if section == 'drone':
-            #starting comm
-            jdrc = comm.init(cfg,'drone')
-
-            # creating the object
-            robot = Drone(jdrc)
-
+            # TODO
+            print 'Unable to run ROS with drones yet'
             break
         elif section == 'robot':
-            #starting comm
-            jdrc = comm.init(cfg,'robot')
-
             # creating the object
-            robot = Robot(jdrc)
+            robot = Robot(cfg)
 
             break
     # executing the scratch program
