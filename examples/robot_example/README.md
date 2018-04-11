@@ -1,5 +1,11 @@
 # Getting started
 
+You have an example here:
+
+https://www.youtube.com/watch?v=hv0OtbSlIYg
+
+## Prepare your workspace
+
 Source your catkin workspace
 
     cd catkin_workspace
