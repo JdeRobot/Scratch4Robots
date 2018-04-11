@@ -40,19 +40,19 @@ def __getPublisherMotors(jdrc, prefix):
     if (sys.version_info[0] == 2):
         print("Publishing "+  prefix + " with ROS messages")
         topic = jdrc.getConfig().getProperty(prefix+".Topic")
-
+        # print topic
         maxW = jdrc.getConfig().getPropertyWithDefault(prefix+".maxW", 0.5)
         if not maxW:
             maxW = 0.5
             print (prefix+".maxW not provided, the default value is used: "+ repr(maxW))
-                
+
 
         maxV = jdrc.getConfig().getPropertyWithDefault(prefix+".maxV", 5)
         if not maxV:
             maxV = 5
             print (prefix+".maxV not provided, the default value is used: "+ repr(maxV))
 
-        
+
         client = PublisherMotors(topic, maxV, maxW)
         return client
     else:

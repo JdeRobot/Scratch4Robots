@@ -22,7 +22,7 @@ def execute(robot):
             time.sleep(5)
             robot.stop()
             time.sleep(1)
-        
+
     except KeyboardInterrupt:
         raise
 
@@ -59,4 +59,3 @@ if __name__ == '__main__':
             break
     # executing the scratch program
     execute(robot)
-
