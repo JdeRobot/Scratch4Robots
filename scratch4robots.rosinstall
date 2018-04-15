@@ -1,6 +1,0 @@
-# - svn: {local-name: some/local/path2, uri: /some/local/uri}
-# - hg: {local-name: some/local/path3, uri: http://some/uri, version: 123}
-- git: {local-name: /opt/ros/kinetic, uri:https://github.com/scarrionv/Scratch4Robots , version: 1}
-# - bzr: {local-name: some/local/path4, uri: http://some/uri, version: 123}
-- setup-file:
-    local-name: /opt/ros/kinetic/setup.sh

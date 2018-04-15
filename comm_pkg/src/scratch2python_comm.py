@@ -175,8 +175,8 @@ if __name__ == "__main__":
 
     # get current working directory
     path = os.getcwd()
-    open_path = path[:path.rfind('scripts')] + 'data/'
-    save_path = path[:path.rfind('scripts')] + '/src/'
+    open_path = path+'/'
+    save_path = path+'/'
 
     if len(sys.argv) >= 2:
         # template creation
@@ -187,6 +187,7 @@ if __name__ == "__main__":
 import time\n\
 import config\n\
 import sys\n\
+import comm\n\
 import os\n\
 import yaml\n\
 import math\n\n\
@@ -200,29 +201,35 @@ except KeyboardInterrupt:\n\
 if __name__ == '__main__':\n\
 \tif len(sys.argv) == 2:\n\
 \t\tpath = os.getcwd()\n\
-\t\topen_path = path[:path.rfind('src')] + 'cfg/'\n\
+\t\topen_path = path + '/'\n\
 \t\tfilename = sys.argv[1]\n\n\
 \telse:\n\
 \t\tsys.exit(\"ERROR: Example:python my_generated_script.py cfgfile.yml\")\n\n\
-\t# loading parameters\n\
+\t# loading the ICE and ROS parameters\n\
 \tcfg = config.load(open_path + filename)\n\
 \tstream = open(open_path + filename, \"r\")\n\
 \tyml_file = yaml.load(stream)\n\n\
 \tfor section in yml_file:\n\
 \t\tif section == 'drone':\n\
-\t\t\t#TODO\n\
-\t\t\tprint 'Unable to run ROS with drones yet'\n\n\
+\t\t\t#starting comm\n\
+\t\t\tjdrc = comm.init(cfg,'drone')\n\n\
+\t\t\t# creating the object\n\
+\t\t\trobot = Drone(jdrc)\n\n\
 \t\t\tbreak\n\
 \t\telif section == 'robot':\n\
-\t\t\trobot = Robot(cfg)\n\n\
+\t\t\t#starting comm\n\
+\t\t\tjdrc = comm.init(cfg,'robot')\n\n\
+\t\t\t# creating the object\n\
+\t\t\trobot = Robot(jdrc)\n\n\
 \t\t\tbreak\n\
 \t# executing the scratch program\n\
 \texecute(robot)\n\n\
 "
-
         # load the scratch project
-        p = kurt.Project.load(open_path + sys.argv[1])
-
+        if os.path.isabs(sys.argv[1]):
+            p = kurt.Project.load(sys.argv[1])
+        else:
+            p = kurt.Project.load(open_path + sys.argv[1])
         # show the blocks included
         for scriptable in p.sprites + [p.stage]:
             for script in scriptable.scripts:
@@ -276,7 +283,8 @@ if __name__ == '__main__':\n\
         print("-------------------\n")
 
         # save the code in a python file with the same name as sb2 file
-        file_name = sys.argv[1].replace('.sb2','.py')
+        file_name = os.path.basename(sys.argv[1])
+        file_name = file_name.replace('.sb2','.py')
         f = open(save_path + file_name, "w")
         os.chmod(save_path + file_name, 0775)
         f.write(file_text)

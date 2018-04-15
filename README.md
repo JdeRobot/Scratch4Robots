@@ -27,12 +27,13 @@ The extension will be stored in the "extension" directory of your package.
 
 ## Make a project
 
-Make a scratch project and save it in the data directory of the package
+Make a scratch project and save it.
 
 
 ## Make the translation from Scratch to python
 
-	roslaunch scratch4robots scratch2python.launch file:=myscratchfile.sb2
+    
+	rosrun scratch4robots scratch2python.py myscratchfile.sb2
 
 
 ## Launch the simulated world
