@@ -1,23 +1,5 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
-
-import math
-import time
-import imutils
-import cv2
-
-
-from parallelIce.cameraClient import CameraClient
-from parallelIce.cmdvel import CMDVel
-from parallelIce.extra import Extra
-from parallelIce.navDataClient import NavDataClient
-from parallelIce.pose3dClient import Pose3DClient
-
-# define the lower and upper boundaries of the basic colors
-GREEN_RANGE = ((29, 86, 6), (64, 255, 255))
-RED_RANGE = ((139, 0, 0), (255, 160, 122))
-BLUE_RANGE = ((0, 128, 128), (65, 105, 225))
-
 import math
 import time
 import imutils
@@ -40,11 +22,12 @@ class Drone():
     Drone class.
     """
 
-    def __init__(self, jdrc):
+    def __init__(self, cfg):
         """
         Init method.
-        @param jdrc:
+        @param cfg:
         """
+        jdrc = comm.init(cfg,'drone')
 
     	#variables
         self.frontalCamera = False

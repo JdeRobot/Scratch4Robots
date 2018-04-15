@@ -4,6 +4,9 @@ You have an example here:
 https://www.youtube.com/watch?v=IVLTRkUutAk
 
 ## Prepare your workspace
+
+This example is ready for work with comm library, ICE and ROS communications are allowed
+
 Source your catkin workspace
 
     cd catkin_workspace
@@ -11,10 +14,14 @@ Source your catkin workspace
 
 You can choose between two examples file, drone_example_1.sb2 or drone_example_2.sb2
 
+## Go to example directory
+
+    roscd scratch4robots
+    cd examples/drone_example/src
 
 ## Make the translation from Scratch to python
 
-	roslaunch scratch4robots scratch2python_example_drone.launch file:=drone_example_1.sb2
+    rosrun scratch4robots scratch2python.py drone_example_1.sb2
 
 ## Launch the simulated world
 
@@ -24,6 +31,4 @@ In other terminal run:
 
 ## Execute the generated code
 
-	roscd scratch4robots
-	cd examples/drone_example/src
-	./drone_example_1.py drone_ice.yml
+	./drone_example_1.py ../cfg/drone_ice.yml

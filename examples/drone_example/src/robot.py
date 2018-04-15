@@ -23,13 +23,15 @@ class Robot():
     Robot class.
     """
 
-    def __init__(self, jdrc):
+    def __init__(self, cfg):
         """
         Init method.
 
-        @param jdrc:
+        @param cfg:
         """
 
+        #starting comm
+        jdrc = comm.init(cfg,'robot')
         # variables
 
         self.__vel = CMDVel()

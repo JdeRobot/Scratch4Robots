@@ -206,13 +206,17 @@ if __name__ == '__main__':\n\
 \telse:\n\
 \t\tsys.exit(\"ERROR: Example:python my_generated_script.py cfgfile.yml\")\n\n\
 \t# loading parameters\n\
-\tcfg = config.load(open_path + filename)\n\
-\tstream = open(open_path + filename, \"r\")\n\
+\tif os.path.isabs(filename):\n\
+\t\tstream = open(filename, \"r\")\n\
+\t\tcfg = config.load(filename)\n\
+\telse:\n\
+\t\tstream = open(open_path + filename, \"r\")\n\
+\t\tcfg = config.load(open_path + filename)\n\
 \tyml_file = yaml.load(stream)\n\n\
 \tfor section in yml_file:\n\
 \t\tif section == 'drone':\n\
 \t\t\t#TODO\n\
-\t\t\tprint 'Unable to run ROS with drones yet'\n\n\
+\t\t\trobot = Drone(cfg)\n\n\
 \t\t\tbreak\n\
 \t\telif section == 'robot':\n\
 \t\t\trobot = Robot(cfg)\n\n\
