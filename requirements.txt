@@ -1,4 +1,2 @@
 parse==1.8.2
 imutils==0.4.3
-#-e git+https://github.com/JdeRobot/ThirdParty.git#subdirectory=kurt&egg=kurt
-#-e git+https://github.com/raulperula/kurt.git#egg=kurt

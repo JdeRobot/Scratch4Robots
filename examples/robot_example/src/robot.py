@@ -39,7 +39,6 @@ class Robot():
         prefix = "robot.Motors"
         print("Publishing "+  prefix + " with ROS messages")
         topic = cfg.getProperty(prefix+".Topic")
-        print topic
         maxW = cfg.getPropertyWithDefault(prefix+".maxW", 0.5)
         if not maxW:
             maxW = 0.5

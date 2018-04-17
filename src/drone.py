@@ -5,7 +5,6 @@ import math
 import time
 import imutils
 import cv2
-import comm
 import numpy as np
 
 from jderobotTypes import CMDVel
