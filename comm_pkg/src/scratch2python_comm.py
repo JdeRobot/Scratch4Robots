@@ -201,13 +201,17 @@ except KeyboardInterrupt:\n\
 if __name__ == '__main__':\n\
 \tif len(sys.argv) == 2:\n\
 \t\tpath = os.getcwd()\n\
-\t\topen_path = path + '/'\n\
+\t\topen_path = path+'/'\n\
 \t\tfilename = sys.argv[1]\n\n\
 \telse:\n\
 \t\tsys.exit(\"ERROR: Example:python my_generated_script.py cfgfile.yml\")\n\n\
-\t# loading the ICE and ROS parameters\n\
-\tcfg = config.load(open_path + filename)\n\
-\tstream = open(open_path + filename, \"r\")\n\
+\t# loading parameters\n\
+\tif os.path.isabs(filename):\n\
+\t\tstream = open(filename, \"r\")\n\
+\t\tcfg = config.load(filename)\n\
+\telse:\n\
+\t\tstream = open(open_path + filename, \"r\")\n\
+\t\tcfg = config.load(open_path + filename)\n\
 \tyml_file = yaml.load(stream)\n\n\
 \tfor section in yml_file:\n\
 \t\tif section == 'drone':\n\

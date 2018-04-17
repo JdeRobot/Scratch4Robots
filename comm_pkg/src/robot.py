@@ -1,13 +1,8 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 
+import comm
 import time
-import config
-import rospy
-
-from ros.listenerPose3d import ListenerPose3d
-from ros.listenerLaser import ListenerLaser
-from ros.publisherMotors import PublisherMotors
 
 from jderobotTypes import CMDVel
 
@@ -24,47 +19,16 @@ class Robot():
 
         @param cfg:
         """
-
-        # ymlNode = cfg.getProperty("robot") # return dict with properties from yml
-        # get node
-        self.__node = rospy.init_node("robot", anonymous=True)
-
-        # get clients
-        prefix = "robot.Pose3D"
-        print("Receiving " + prefix + " from ROS messages")
-        topic = cfg.getProperty(prefix+".Topic")
-        self.__pose3d_client = ListenerPose3d(topic)
-
-
-        prefix = "robot.Motors"
-        print("Publishing "+  prefix + " with ROS messages")
-        topic = cfg.getProperty(prefix+".Topic")
-        print topic
-        maxW = cfg.getPropertyWithDefault(prefix+".maxW", 0.5)
-        if not maxW:
-            maxW = 0.5
-            print (prefix+".maxW not provided, the default value is used: "+ repr(maxW))
-
-        maxV = cfg.getPropertyWithDefault(prefix+".maxV", 5)
-        if not maxV:
-            maxV = 5
-            print (prefix+".maxV not provided, the default value is used: "+ repr(maxV))
-
-        self.__motors_client =  PublisherMotors(topic, maxV, maxW)
-
-        prefix = "robot.Laser"
-        print("Receiving " + prefix + " from ROS messages")
-        topic = cfg.getProperty(prefix+".Topic")
-        self.__laser_client = ListenerLaser(topic)
+        jdrc = comm.init(cfg,'robot')
 
         # variables
 
         self.__vel = CMDVel()
 
-        # # get clients
-        # self.__pose3d_client = jdrc.getPose3dClient("robot.Pose3D")
-        # self.__motors_client = jdrc.getMotorsClient("robot.Motors")
-        # self.__laser_client = ros.ListenerPose3d("robot.Laser")
+        # get clients
+        self.__pose3d_client = jdrc.getPose3dClient("robot.Pose3D")
+        self.__motors_client = jdrc.getMotorsClient("robot.Motors")
+        self.__laser_client = jdrc.getLaserClient("robot.Laser")
 
 
     def __publish(self, vel):
