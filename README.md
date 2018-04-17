@@ -67,7 +67,7 @@ Make a scratch project and save it.
 Generate the code:
 
     cd Scratch4Robots/src
-    ./scratch2python.py /your/path/to/scratchfile.sb2
+    ./scratch2python.py /your/path/to/myscratchfile.sb2
 
 Only if you are working with the tool as ROS package, after source your package:
 
@@ -90,7 +90,7 @@ For example:
 
 ## Running an example
 
-    You have all you need for running the examples in the examples folder
+You have all you need for running the examples in the examples folder
 
 
 # More information about the tool
