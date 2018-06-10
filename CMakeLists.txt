@@ -40,7 +40,7 @@ catkin_python_setup()
 catkin_package(
     INCLUDE_DIRS src
     CATKIN_DEPENDS rospy
-    DEPENDS 
+    DEPENDS
 )
 
 ###########
@@ -53,6 +53,9 @@ include_directories(
     include src
     ${catkin_INCLUDE_DIRS}
 )
+
+catkin_install_python(PROGRAMS scripts/scratch2python
+                      DESTINATION ${CATKIN_PACKAGE_BIN_DESTINATION})
 
 #############
 ## Testing ##
