@@ -5,6 +5,7 @@ import time
 import imutils
 import cv2
 import numpy as np
+import comm
 
 from jderobotTypes import CMDVel
 from jderobotTypes import Pose3d
@@ -38,6 +39,7 @@ class Drone():
         self.__cmdvel_client = jdrc.getCMDVelClient("drone.CMDVel")
         self.__extra_client = jdrc.getArDroneExtraClient("drone.Extra")
         self.__navdata_client = jdrc.getNavdataClient("drone.Navdata")
+        # self.__motors_client = jdrc.getMotorsClient("drone.Motors")
 
     def close(self):
         """
