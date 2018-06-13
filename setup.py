@@ -8,7 +8,12 @@ from distutils.core import setup
 d = generate_distutils_setup(
     # don't do this unless you want a globally visible script
     # scripts=['bin/myscript'],
-    packages=['scratch4robots'],
+    packages=['scratch4robots',
+    'scratch4robots.config',
+    'scratch4robots.kurt',
+    'scratch4robots.jderobotTypes',
+    'scratch4robots.ros'
+    ],
     package_dir={'': 'src'}  # ,
     #     package_xml_path=pkg_path
 )
