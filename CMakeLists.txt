@@ -54,7 +54,7 @@ include_directories(
     ${catkin_INCLUDE_DIRS}
 )
 
-catkin_install_python(PROGRAMS scripts/scratch2python
+catkin_install_python(PROGRAMS src/scratch4robots/scratch2python
                       DESTINATION ${CATKIN_PACKAGE_BIN_DESTINATION})
 
 #############
