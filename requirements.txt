@@ -1,2 +1,7 @@
 parse==1.8.2
 imutils==0.4.3
+jderobot-config
+jderobot-ros
+jderobot-jderobottypes
+jderobot-kurt
+pyyaml
