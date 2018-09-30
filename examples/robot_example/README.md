@@ -14,7 +14,7 @@ In other terminal run:
 
 ## Execute the generated code
 
-	./robot_example_2.py ../cfg/robot_ros.yml
+	./robot_example_2.py robot_ros.yml
 
 ## Only with catikin workspace
 
