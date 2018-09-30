@@ -1,5 +1,9 @@
 # Scratch4Robots
 
+## Full installation video
+
+[![Scratch4Robots](http://img.youtube.com/vi/5JYuD8N0RBs/1.jpg)](https://www.youtube.com/watch?v=5JYuD8N0RBs "Scratch4Robots")
+
 ## Prerequisites
 
 ### Scratch 2.0
