@@ -28,6 +28,10 @@ With this line we get some prepared worlds based on ROS ready to use:
 
 ## Installing
 
+### Install our ROS package
+
+    sudo apt-get install ros-kinetic-scratch4robots
+
 ### Install Scartch4Robots extension to use in Scratch
 
 In scratch keep pressing shift key while you click on "File" > "Import experimental HTTP extension" and add our extension.
@@ -37,24 +41,9 @@ The extension will be stored in the "extension" directory of your package.
 
 ### Download the tool from git
 
+Here you will find some usefull examples.
+
     git clone https://github.com/JdeRobot/Scratch4Robots.git
-
-### With catkin workspace
-
-Follow this steps only if you want to work with catkin workspace
-
-#### Prepare your workspace
-
-You have a guide for make your own catkin workspace here:
-http://wiki.ros.org/catkin/Tutorials/create_a_workspace
-
-Once you have your catkin workspace:
-
-	cd catkin_workspace/src
-	git clone https://github.com/JdeRobot/Scratch4Robots.git
-	catkin_make
-
-Now your package is ready to use.
 
 ## How to Use
 
@@ -66,12 +55,7 @@ Make a scratch project and save it.
 
 Generate the code:
 
-    cd Scratch4Robots/src
-    ./scratch2python.py /your/path/to/myscratchfile.sb2
-
-Only if you are working with the tool as ROS package, after source your package:
-
-	rosrun scratch4robots scratch2python.py /your/path/to/myscratchfile.sb2
+    rosrun scratch4robots scratch2python /path/to/your/scratchproject.sb2
 
 This command will generate the python script on your current work directory
 
@@ -85,7 +69,8 @@ For example:
 
 ### Execute the generated code
 
-	cd Scratch4Robots/src
+The generated code need a configuration file .yml as parameter, you will find some usefull configuration files in this git repository.
+
 	./myscratchfile.py /path/to/robot_ros.yml
 
 ## Running an example
