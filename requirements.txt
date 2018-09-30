@@ -1,7 +1,10 @@
 parse==1.8.2
 imutils==0.4.3
-jderobot-config
+config-jderobot
 jderobot-ros
 jderobot-jderobottypes
 jderobot-kurt
+drone-scratch4robots
+robot-scratch4robots==1.0.7
 pyyaml
+rospkg

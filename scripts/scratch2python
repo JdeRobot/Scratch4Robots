@@ -191,8 +191,6 @@ import sys\n\
 import os\n\
 import yaml\n\
 import math\n\n\
-from drone import Drone\n\
-from robot import Robot\n\n\
 def execute(robot):\n\
 \ttry:\n\
 \t%s\
@@ -216,9 +214,11 @@ if __name__ == '__main__':\n\
 \tfor section in yml_file:\n\
 \t\tif section == 'drone':\n\
 \t\t\t#TODO\n\
+\t\t\tfrom drone import Drone\n\
 \t\t\trobot = Drone(cfg)\n\n\
 \t\t\tbreak\n\
 \t\telif section == 'robot':\n\
+\t\t\tfrom robot import Robot\n\
 \t\t\trobot = Robot(cfg)\n\n\
 \t\t\tbreak\n\
 \t# executing the scratch program\n\

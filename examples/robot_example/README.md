@@ -4,7 +4,7 @@ This example is ready for work directly with ROS
 
 ## Make the translation from Scratch to python
 
-    ./scratch2python.py robot_example_2.sb2
+    rosrun scratch4robots scratch2python robot_example_2.sb2
 
 ## Launch the simulated world
 
